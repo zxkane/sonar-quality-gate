@@ -11,10 +11,12 @@ export interface Response<T = unknown> {
 export class Axios {
   host: string;
   headers?: any;
+  auth?: any;
 
-  constructor(opt: { host: string; headers?: any }) {
+  constructor(opt: { host: string; headers?: any; auth?: any }) {
     this.host = opt.host;
     this.headers = opt.headers;
+    this.auth = opt.auth;
   }
 
   private generateQuerystring(parameters: any): string {
@@ -42,7 +44,7 @@ export class Axios {
   ): Promise<R> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
-    return axios.get<T, R, D>(url, { headers: mergeHeadrs });
+    return axios.get<T, R, D>(url, { headers: mergeHeadrs, auth: this.auth ?? undefined });
   }
 
   post<T = unknown, R = Response<T>, D = any>(
@@ -53,7 +55,7 @@ export class Axios {
   ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
-    return axios.post<T, R, D>(url, data, { headers: mergeHeadrs });
+    return axios.post<T, R, D>(url, data, { headers: mergeHeadrs, auth: this.auth ?? undefined });
   }
 
   put<T = unknown, R = Response<T>, D = any>(
@@ -64,7 +66,7 @@ export class Axios {
   ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
-    return axios.put<T, R, D>(url, data, { headers: mergeHeadrs });
+    return axios.put<T, R, D>(url, data, { headers: mergeHeadrs, auth: this.auth ?? undefined});
   }
 
   patch<T = unknown, R = Response<T>, D = any>(
@@ -75,7 +77,7 @@ export class Axios {
   ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
-    return axios.patch<T, R, D>(url, data, { headers: mergeHeadrs });
+    return axios.patch<T, R, D>(url, data, { headers: mergeHeadrs, auth: this.auth ?? undefined});
   }
 
   delete<T = unknown, R = Response<T>, D = any>(
@@ -85,6 +87,6 @@ export class Axios {
   ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
-    return axios.delete<T, R, D>(url, { headers: mergeHeadrs });
+    return axios.delete<T, R, D>(url, { headers: mergeHeadrs, auth: this.auth ?? undefined});
   }
 }

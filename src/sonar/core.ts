@@ -33,6 +33,10 @@ export class Sonar {
       this.host = opt.host;
       this.projectKey = opt.projectKey;
     }
+    if (!this.host)
+      this.host = opt.host;
+    if (!this.projectKey)
+      this.projectKey = opt.projectKey;
     this.qualityGate = new SonarReport({
       host: this.host,
       projectKey: this.projectKey,
@@ -40,10 +44,11 @@ export class Sonar {
       branchPluginMergeId: opt.branchPluginMergeId,
     });
 
-    const headers = {
-      Authorization: "Bearer " + opt.tokenKey,
+    const auth = {
+      username: opt.tokenKey,
+      password: "",
     };
-    this.http = new Axios({ host: this.host, headers: headers });
+    this.http = new Axios({ host: this.host, auth: auth });
   }
 
   async getQualityStatus() {

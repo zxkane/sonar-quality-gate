@@ -78,7 +78,9 @@ export class Cli {
         this.runSonarScanner((this.generateReport).bind(this));
       }
     } catch (e) {
+      Log.error('failed to generate report');
       Log.error(e);
+      process.exit(255);
     }
   }
 
