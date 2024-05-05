@@ -14,3 +14,9 @@ RUN npm i -g
 RUN rm -rf src
 
 CMD sonar-scanner
+
+COPY action/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /srv
+ENTRYPOINT ["/entrypoint.sh"]
