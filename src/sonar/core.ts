@@ -78,12 +78,12 @@ export class Sonar {
   }
 
   private async findIssuesByPage(fromTime: string, page: number) {
-    const parameters: entity.SonarApiRequestParameters = {
+    const parameters: entity.SonarIssueSearchRequestParameters = {
       componentKeys: this.projectKey,
-      // sinceLeakPeriod: true, // get issues of new code on sonar
       p: page,
       ps: PAGE_SIZE,
-      createdAfter: fromTime,
+      inNewCodePeriod: 'true',
+      statuses: 'OPEN',
     };
 
     if (this.qualityGate.branchPluginEnabled) {

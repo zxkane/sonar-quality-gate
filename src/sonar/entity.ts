@@ -65,3 +65,8 @@ export interface SonarApiRequestParameters {
   p?: number;
   ps?: number;
 }
+
+export interface SonarIssueSearchRequestParameters extends SonarApiRequestParameters {
+  inNewCodePeriod?: string;
+  statuses?: string;
+}
